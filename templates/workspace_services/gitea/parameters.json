@@ -65,9 +65,9 @@
       }
     },
     {
-      "name": "sql_sku",
+      "name": "gitea_sku",
       "source": {
-        "env": "SQL_SKU"
+        "env": "GITEA_SKU"
       }
     }
   ]
