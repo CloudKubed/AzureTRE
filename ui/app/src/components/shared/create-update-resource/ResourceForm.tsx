@@ -139,7 +139,7 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
     ]
   }
 
-  const validateFormData = (formData: any, schema: any): any => {
+  const validateFormData = (formData: any, schema: any, template: any): any => {
     let errors: any = {};
     return errors;
   };
@@ -159,7 +159,7 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
                 formData={formData}
                 uiSchema={uiSchema}
                 onSubmit={(e: any) => createUpdateResource(e.formData)}
-                validator={(formData: any, schema: any) => validateFormData(formData, schema)}
+                validator={(formData: any, schema: any, template: any) => validateFormData(formData, schema, template)}
               />
           }
         </div>
