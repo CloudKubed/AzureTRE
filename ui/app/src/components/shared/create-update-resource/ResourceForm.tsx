@@ -139,8 +139,11 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
     ]
   }
 
-  const validateFormData = (formData: any, schema: any, template: any): any => {
-    let errors: any = {};
+  const validateFormData = (formData: any, errors: FormValidation): IErrorSchema => {
+    if (!formData.display_name) {
+      errors.display_name.addError('Display name is required.');
+    }
+
     return errors;
   };
 
@@ -159,7 +162,7 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
                 formData={formData}
                 uiSchema={uiSchema}
                 onSubmit={(e: any) => createUpdateResource(e.formData)}
-                validator={(formData: any, schema: any, template: any) => validateFormData(formData, schema, template)}
+                validator={(formData, errors) => validateFormData(formData, errors)}
               />
           }
         </div>
