@@ -9,7 +9,6 @@ import { ResourceType } from "../../../models/resourceType";
 import { APIError } from "../../../models/exceptions";
 import { ExceptionLayout } from "../ExceptionLayout";
 import { ResourceTemplate, sanitiseTemplateForRJSF } from "../../../models/resourceTemplate";
-import { FormValidation } from "@rjsf/core";
 
 interface ResourceFormProps {
   templateName: string,
@@ -140,11 +139,10 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
     ]
   }
 
-  const validateFormData = (formData: any, errors: FormValidation): FormValidation => {
+  const validateFormData = (formData: { display_name: any; }, errors: { display_name: { addError: (arg0: string) => void; }; }) => {
     if (!formData.display_name) {
       errors.display_name.addError('Display name is required.');
     }
-
     return errors;
   };
 
@@ -163,8 +161,7 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
                 formData={formData}
                 uiSchema={uiSchema}
                 onSubmit={(e: any) => createUpdateResource(e.formData)}
-                validator={(formData: any, errors: FormValidation) => validateFormData(formData, errors)}
-              />
+                validator={validateFormData}              />
           }
         </div>
       )
