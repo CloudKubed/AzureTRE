@@ -139,8 +139,8 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
     ]
   }
 
-  const validateFormData = (formData: { display_name: any; }, errors: { display_name: { addError: (arg0: string) => void; }; }) => {
-    if (!formData.display_name) {
+  const validateFormData = (formData: any, errors: any) => {
+      if (!formData.display_name) {
       errors.display_name.addError('Display name is required.');
     }
     return errors;
