@@ -139,6 +139,13 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
     ]
   }
 
+  const validateFormData = (formData: any, errors: any) => {
+      if (!formData.display_name) {
+      errors.display_name.addError('Display name is required.');
+    }
+    return errors;
+  };
+
   switch (loading) {
     case LoadingState.Ok:
       return (
@@ -148,7 +155,13 @@ export const ResourceForm: React.FunctionComponent<ResourceFormProps> = (props: 
             sendingData ?
               <Spinner label="Sending request" ariaLive="assertive" labelPosition="bottom" size={SpinnerSize.large} />
               :
-              <Form omitExtraData={true} schema={template} formData={formData} uiSchema={uiSchema} onSubmit={(e: any) => createUpdateResource(e.formData)} />
+              <Form
+                omitExtraData={true}
+                schema={template}
+                formData={formData}
+                uiSchema={uiSchema}
+                onSubmit={(e: any) => createUpdateResource(e.formData)}
+                validator={validateFormData}              />
           }
         </div>
       )
