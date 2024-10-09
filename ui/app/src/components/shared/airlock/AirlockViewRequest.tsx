@@ -106,11 +106,11 @@ const deleteRequestData = useCallback(async () => {
     setDeleting(true);
     setDeleteError(false);
     try {
-      await apiCall(
-        `${ApiEndpoint.Workspaces}/${request.workspaceId}/${ApiEndpoint.AirlockRequests}/${request.id}/${ApiEndpoint.AirlockDelete}`, // Adjust endpoint for delete
-        HttpMethod.Delete,
-        workspaceCtx.workspaceApplicationIdURI
-      );
+      // await apiCall(
+      //   `${ApiEndpoint.Workspaces}/${request.workspaceId}/${ApiEndpoint.AirlockRequests}/${request.id}/${ApiEndpoint.AirlockDelete}`, // Adjust endpoint for delete
+      //   HttpMethod.Delete,
+      //   workspaceCtx.workspaceApplicationIdURI
+      // );
       // Optionally call a function to refresh the requests or update the UI
       props.onUpdateRequest(null); // Assuming it should remove the request from UI
       setHideDeleteDialog(true);
