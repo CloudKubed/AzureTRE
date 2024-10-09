@@ -8,7 +8,7 @@ export enum ApiEndpoint {
   AirlockSubmit = 'submit',
   AirlockCancel = 'cancel',
   AirlockReview = 'review',
-  AirlockDelete = 'delete',         //Added this for the delete button
+  // AirlockDelete = 'delete',         //Added this for the delete button
   AirlockCreateReviewResource = 'review-user-resource',
   WorkspaceTemplates = 'workspace-templates',
   WorkspaceServiceTemplates = 'workspace-service-templates',

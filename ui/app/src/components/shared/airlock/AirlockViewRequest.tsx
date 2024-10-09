@@ -26,9 +26,6 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
   const [submitError, setSubmitError] = useState(false);
   const [hideCancelDialog, setHideCancelDialog] = useState(true);
   const [apiError, setApiError] = useState({} as APIError);
-  const [hideDeleteDialog, setHideDeleteDialog] = useState(true);     // State variable to control the visibility of the delete confirmation dialog
-  const [deleting, setDeleting] = useState(false);                    // State variable to indicate whether a delete operation is currently in progress
-  const [deleteError, setDeleteError] = useState(false);              // State variable to track if an error occurred during the delete operation
   const workspaceCtx = useContext(WorkspaceContext);
   const apiCall = useAuthApiCall();
   const navigate = useNavigate();
@@ -100,29 +97,6 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
     }
   }, [apiCall, request, props, workspaceCtx.workspaceApplicationIdURI]);
 
-  // Function to delete the airlock request data
-const deleteRequestData = useCallback(async () => {
-  if (request && request.workspaceId) {
-    setDeleting(true);
-    setDeleteError(false);
-    try {
-      // await apiCall(
-      //   `${ApiEndpoint.Workspaces}/${request.workspaceId}/${ApiEndpoint.AirlockRequests}/${request.id}/${ApiEndpoint.AirlockDelete}`, // Adjust endpoint for delete
-      //   HttpMethod.Delete,
-      //   workspaceCtx.workspaceApplicationIdURI
-      // );
-      // Optionally call a function to refresh the requests or update the UI
-      props.onUpdateRequest(null); // Assuming it should remove the request from UI
-      setHideDeleteDialog(true);
-    } catch (err: any) {
-      err.userMessage = 'Error deleting airlock request data';
-      setApiError(err);
-      setDeleteError(true);
-    }
-    setDeleting(false);
-  }
-}, [apiCall, request, props, workspaceCtx.workspaceApplicationIdURI]);
-
   // Render the panel footer along with buttons that the signed-in user is allowed to see according to the API
   const renderFooter = useCallback(() => {
     let footer = <></>
@@ -153,11 +127,6 @@ const deleteRequestData = useCallback(async () => {
             request.allowedUserActions?.includes(AirlockRequestAction.Review) &&
               <PrimaryButton onClick={() => setReviewIsOpen(true)}>Review</PrimaryButton>
           }
-          {
-            request.allowedUserActions?.includes(AirlockRequestAction.Delete) &&      // Check for delete action
-              <DefaultButton onClick={() => {setSubmitError(false); setHideDeleteDialog(false); }} styles={destructiveButtonStyles}>Delete Data</DefaultButton>
-          }
-          
         </div>
       </>
     }
@@ -352,27 +321,6 @@ const deleteRequestData = useCallback(async () => {
             </DialogFooter>
           }
         </Dialog>
-        
-        <Dialog
-          hidden={hideDeleteDialog}
-          onDismiss={() => { setHideDeleteDialog(true); setDeleteError(false) }}
-          dialogContentProps={{
-            title: 'Delete Data?',
-            subText: 'This action will force delete all the data associated with this request.',
-          }}
-        >
-          {
-            deleteError && <ExceptionLayout e={apiError} />
-          }
-          {
-            deleting
-            ? <Spinner label="Deleting..." ariaLive="assertive" labelPosition="top" size={SpinnerSize.large} />
-            : <DialogFooter>
-            <DefaultButton onClick={() => { setHideDeleteDialog(true); setDeleteError(false) }} text="Cancel" />
-            <PrimaryButton onClick={deleteRequestData} text="Delete Data" />
-            </DialogFooter>
-          }
-      </Dialog>
 
         <Modal
           titleAriaId={`title-${request?.id}`}
