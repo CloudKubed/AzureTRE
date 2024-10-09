@@ -23,6 +23,8 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
   const [hideSubmitDialog, setHideSubmitDialog] = useState(true);
   const [reviewIsOpen, setReviewIsOpen] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [isDeleting, setIsDelete] = useState(false);
+  const [hideDeletingDialog, setHideDeletingDialog] = useState(true)
   const [submitError, setSubmitError] = useState(false);
   const [hideCancelDialog, setHideCancelDialog] = useState(true);
   const [apiError, setApiError] = useState({} as APIError);
@@ -115,6 +117,9 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
           </div>
         }
         <div style={{textAlign: 'end'}}>
+          {
+            <DefaultButton onClick={() => {setHideDeletingDialog(false)}} styles={destructiveButtonStyles}>Delete Data</DefaultButton>
+          }
           {
             request.allowedUserActions?.includes(AirlockRequestAction.Cancel) &&
               <DefaultButton onClick={() => {setSubmitError(false); setHideCancelDialog(false)}} styles={destructiveButtonStyles}>Cancel request</DefaultButton>
@@ -321,7 +326,16 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
             </DialogFooter>
           }
         </Dialog>
-
+        <Dialog
+          hidden={hideDeletingDialog}
+          onDismiss={() => {setHideDeletingDialog(true)}}
+          dialogContentProps={{
+            title: 'Are you sure?',
+            subText: 'Do you really mean to delete the data?',
+          }}
+        >
+         {/* <!-- Data goes here --> */}
+        </Dialog>
         <Modal
           titleAriaId={`title-${request?.id}`}
           isOpen={reviewIsOpen}
