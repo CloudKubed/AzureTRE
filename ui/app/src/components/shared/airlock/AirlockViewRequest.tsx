@@ -100,6 +100,29 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
     }
   }, [apiCall, request, props, workspaceCtx.workspaceApplicationIdURI]);
 
+  // Function to delete the airlock request data
+const deleteRequestData = useCallback(async () => {
+  if (request && request.workspaceId) {
+    setDeleting(true);
+    setDeleteError(false);
+    try {
+      // await apiCall(
+      //   `${ApiEndpoint.Workspaces}/${request.workspaceId}/${ApiEndpoint.AirlockRequests}/${request.id}/${ApiEndpoint.AirlockDelete}`, // Adjust endpoint for delete
+      //   HttpMethod.Delete,
+      //   workspaceCtx.workspaceApplicationIdURI
+      // );
+      // Optionally call a function to refresh the requests or update the UI
+      props.onUpdateRequest(null); // Assuming it should remove the request from UI
+      setHideDeleteDialog(true);
+    } catch (err: any) {
+      err.userMessage = 'Error deleting airlock request data';
+      setApiError(err);
+      setDeleteError(true);
+    }
+    setDeleting(false);
+  }
+}, [apiCall, request, props, workspaceCtx.workspaceApplicationIdURI]);
+
   // Render the panel footer along with buttons that the signed-in user is allowed to see according to the API
   const renderFooter = useCallback(() => {
     let footer = <></>
