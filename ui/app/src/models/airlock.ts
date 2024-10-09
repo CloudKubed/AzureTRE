@@ -57,6 +57,7 @@ export enum AirlockRequestAction {
   Cancel = 'cancel',
   Submit = 'submit',
   Review = 'review'
+  Delete = 'delete'
 }
 
 export const AirlockFilesLinkValidStatus = [
