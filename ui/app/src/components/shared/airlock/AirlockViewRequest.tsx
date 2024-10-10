@@ -330,11 +330,27 @@ export const AirlockViewRequest: React.FunctionComponent<AirlockViewRequestProps
           hidden={hideDeletingDialog}
           onDismiss={() => {setHideDeletingDialog(true)}}
           dialogContentProps={{
-            title: 'Are you sure?',
-            subText: 'Do you really mean to delete the data?',
+            title: 'Delete Data?',
+            subText: 'This action will force delete all the data associated with this request.',
           }}
         >
          {/* <!-- Data goes here --> */}
+          <DialogFooter>
+            <PrimaryButton
+              onClick={() => {
+                /* Add your delete data function here */
+              }}
+              text="Delete"
+              styles={destructiveButtonStyles} // Apply the custom red button styles
+            />
+            <DefaultButton
+              onClick={() => {
+                setHideDeletingDialog(true);
+                setSubmitError(false);
+              }}
+              text="Back"
+            />
+          </DialogFooter>
         </Dialog>
         <Modal
           titleAriaId={`title-${request?.id}`}
