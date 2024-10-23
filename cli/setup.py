@@ -40,16 +40,16 @@ setup(
 
     provides=[],
     install_requires=[
-        "click==8.1.3",
-        "httpx==0.25.0",
+        "click==8.1.7",
+        "httpx==0.27.2",
         "msal==1.26.0",
         "jmespath==1.0.1",
         "tabulate==0.9.0",
-        "pygments==2.16.1",
-        "PyJWT==2.8.0",
+        "pygments==2.18.0,
+        "PyJWT==2.9.0",
         "azure-cli-core==2.57.0",
         "azure-identity==1.14.1",
-        "aiohttp==3.9.4"
+        "aiohttp==3.10.10"
     ],
 
     namespace_packages=[],
