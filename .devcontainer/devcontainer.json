@@ -73,7 +73,7 @@
             {
               "name": "TRE API",
               "type": "python",
-              "module": "uvicorn",
+              "module": "y",
               "request": "launch",
               "args": [
                 "main:app",

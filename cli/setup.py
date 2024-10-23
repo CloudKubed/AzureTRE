@@ -45,7 +45,7 @@ setup(
         "msal==1.26.0",
         "jmespath==1.0.1",
         "tabulate==0.9.0",
-        "pygments==2.18.0,
+        "pygments==2.18.0",
         "PyJWT==2.9.0",
         "azure-cli-core==2.57.0",
         "azure-identity==1.14.1",
